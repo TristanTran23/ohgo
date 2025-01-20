@@ -1,34 +1,24 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"log"
-	"net/http"
-	"os"
-
-	"github.com/joho/godotenv"
+  "fmt"
+  "os"
+  "encoding/json"
+  "io"
+  "log"
+  "net/http"
+  "time"
 )
 
-func main() {
-	// Load environment variables from .env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
-
-	// Get API key from environment variables
-	apiKey := os.Getenv("OHGO_APIKEY")
-	if apiKey == "" {
-		log.Fatalf("API key not found in environment variables")
-	}
-
-	// Define API endpoint and parameters
-	baseURL := "https://api.ohgo.com/v1/cameras"
-  req, err := http.NewRequest("GET", baseURL, nil)
-  if err != nil {
-    log.Fatal(err)
-  }
-
+type Camera struct {
+  ID string `json:"id"`
+  Description string `json:"description"`
+  Location string `json:"location"`
+  Direction string `json:"direction"`
+  Roadway string `json:"roadway"`
+  Status string `json:"status"`
+  LastUpdated time.Time `json:"last_updated"`
+  URL string `json:"url"`
 }
+
 
